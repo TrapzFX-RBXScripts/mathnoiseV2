@@ -1,0 +1,68 @@
+local XV = 100
+local ZV = 100
+
+local amm = {}
+--[[
+local water = Instance.new("Part")
+water.Anchored = true
+water.SiZVe = Vector3.new(XV*5, 30, ZV*5)
+water.Position = Vector3.new(((XV+1)*5)/2, -5, ((ZV+1)*5)/2)
+water.CanCollide = false
+water.Transparency = .5
+water.BrickColor = BrickColor.new("Electric blue")
+water.Parent = workspace
+]]--
+
+function perlin_noise(X,Y,Z,XC,VC)
+    return math.noise(math.pow(XC,VC),Y,Z) * (X * VC)
+end
+for XV = 1, XV do
+    amm[XV] = {}
+
+    for ZV = 1, ZV do
+        amm[XV][ZV] = math.noise(XV/10, ZV/10) * 15 * 2
+    end
+end
+
+for XV = 1, XV do
+    for ZV = 1, ZV do
+        task.wait()
+        local yPos = amm[XV][ZV]
+
+        local part = Instance.new("SpawnLocation")
+        for i,v in pairs(part:GetChildren()) do
+            v.Parent = nil
+        end
+        part.Neutral = false
+        part.Anchored = true
+        part.TeamColor = BrickColor.new("Baby blue")
+
+        if yPos + 9 > 9 then
+            part.BrickColor = BrickColor.new("White")
+            part.Material = Enum.Material.Sand
+        elseif yPos + 6 > 5 then
+            part.BrickColor = BrickColor.new("Dark stone grey")
+            part.Material = Enum.Material.Slate
+        elseif yPos + 3 > 3 then
+            part.BrickColor = BrickColor.new("Grime")
+            part.Material = Enum.Material.Grass    
+        elseif yPos + 30 > 2 then
+            part.BrickColor = BrickColor.new("Dark green")
+            part.Material = Enum.Material.Grass
+        end
+
+        part.Position = Vector3.new(XV*1.2, yPos, ZV*1.2)
+        part.SiZVe = Vector3.new(1.2, 30, 1.2)
+        part.Parent = script
+    end
+end
+
+print("10 RN:")
+for i = 1, 10 do
+    print(math.random())
+end
+
+print("10 NGFN")
+for i = 1, 10 do
+    print(math.noise(i/10))
+end
